@@ -3,7 +3,7 @@ class DBController {
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-	private $database = "blog_samples";
+	private $database = "blog_sample";
 	private $conn;
 	
 	function __construct() {

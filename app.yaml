@@ -7,3 +7,9 @@ handlers:
 - url: .*
   script: index.php
 
+- url: /images
+  static_dir: images
+
+- url: /styles
+  static_dir: styles
+
