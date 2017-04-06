@@ -1,9 +1,11 @@
 <?php
 class DBController {
-	private $host = "localhost";
+	private $host = null;
 	private $user = "root";
 	private $password = "root";
 	private $database = "blog_sample";
+	private $port = null;
+	private $socket = "35.187.82.157";
 	private $conn;
 	
 	function __construct() {
