@@ -1,15 +1,15 @@
-application: shopping
-version: 1
+application: gae-group-project
+version: 3
 runtime: php55
 api_version: 1
 
 handlers:
-- url: .*
-  script: index.php
 
-- url: /images
-  static_dir: images
+- url: /product-images
+  static_dir: product-images
 
 - url: /styles
   static_dir: styles
 
+- url: /.*
+  script: index.php
