@@ -5,7 +5,7 @@ class DBController {
 	private $password = "root";
 	private $database = "blog_sample";
 	private $port = null;
-	private $socket = "35.187.82.157";
+	private $socket = "/cloudsql/gae-group-project:europe-west1:gae-group-project";
 	private $conn;
 	
 	function __construct() {
