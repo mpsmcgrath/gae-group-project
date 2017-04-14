@@ -1,14 +1,26 @@
 application: gae-group-project
-version: 3
+version: 4
 runtime: php55
 api_version: 1
 
 handlers:
-- url: /product-images
-  static_dir: product-images
+- url: /images
+  static_dir: images
 
-- url: /styles
-  static_dir: styles
+- url: /style
+  static_dir: style
 
-- url: /.*
+- url: /
   script: index.php
+
+- url: /index.php
+  script: index.php
+
+- url: /cart_update.php
+  script: cart_update.php
+
+- url: /view_cart.php
+  script: view_cart.php
+
+- url: /config.php
+  script: config.php

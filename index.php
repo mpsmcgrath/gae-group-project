@@ -1,115 +1,112 @@
 <?php
-
-require "dbcontroller.php";
 session_start();
+include_once("config.php");
 
-$db_handle = new DBController();
-if(!empty($_GET["action"])) {
-switch($_GET["action"]) {
-	case "add":
-		if(!empty($_POST["quantity"])) {
-			$productByCode = $db_handle->runQuery("SELECT * FROM tblproduct WHERE code='" . $_GET["code"] . "'");
-			$itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"]));
-			
-			if(!empty($_SESSION["cart_item"])) {
-				if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
-					foreach($_SESSION["cart_item"] as $k => $v) {
-							if($productByCode[0]["code"] == $k) {
-								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-									$_SESSION["cart_item"][$k]["quantity"] = 0;
-								}
-								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-							}
-					}
-				} else {
-					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-				}
-			} else {
-				$_SESSION["cart_item"] = $itemArray;
-			}
-		}
-	break;
-	case "remove":
-		if(!empty($_SESSION["cart_item"])) {
-			foreach($_SESSION["cart_item"] as $k => $v) {
-					if($_GET["code"] == $k)
-						unset($_SESSION["cart_item"][$k]);				
-					if(empty($_SESSION["cart_item"]))
-						unset($_SESSION["cart_item"]);
-			}
-		}
-	break;
-	case "empty":
-		unset($_SESSION["cart_item"]);
-	break;	
-}
-}
+
+//current URL of the Page. cart_update.php redirects back to this URL
+$current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 ?>
-<HTML>
-<HEAD>
-<TITLE>GAE Group Project - Online Store</TITLE>
-<link href="styles/style.css" type="text/css" rel="stylesheet" />
-</HEAD>
-<BODY>
-<div id="shopping-cart">
-<div class="txt-heading">Shopping Cart <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a></div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Shopping Cart</title>
+<link href="style/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h1 align="center">Products </h1>
+
+<!-- View Cart Box Start -->
 <?php
-if(isset($_SESSION["cart_item"])){
-    $item_total = 0;
-?>	
-<table cellpadding="10" cellspacing="1">
-<tbody>
-<tr>
-<th style="text-align:left;"><strong>Name</strong></th>
-<th style="text-align:left;"><strong>Code</strong></th>
-<th style="text-align:right;"><strong>Quantity</strong></th>
-<th style="text-align:right;"><strong>Price</strong></th>
-<th style="text-align:center;"><strong>Action</strong></th>
-</tr>	
-<?php		
-    foreach ($_SESSION["cart_item"] as $item){
-		?>
-				<tr>
-				<td style="text-align:left;border-bottom:#F0F0F0 1px solid;"><strong><?php echo $item["name"]; ?></strong></td>
-				<td style="text-align:left;border-bottom:#F0F0F0 1px solid;"><?php echo $item["code"]; ?></td>
-				<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo $item["quantity"]; ?></td>
-				<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo "$".$item["price"]; ?></td>
-				<td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction">Remove Item</a></td>
-				</tr>
-				<?php
-        $item_total += ($item["price"]*$item["quantity"]);
-		}
-		?>
+if(isset($_SESSION["cart_products"]) && count($_SESSION["cart_products"])>0)
+{
+	echo '<div class="cart-view-table-front" id="view-cart">';
+	echo '<h3>Your Shopping Cart</h3>';
+	echo '<form method="post" action="cart_update.php">';
+	echo '<table width="100%"  cellpadding="6" cellspacing="0">';
+	echo '<tbody>';
 
-<tr>
-<td colspan="5" align=right><strong>Total:</strong> <?php echo "$".$item_total; ?></td>
-</tr>
-</tbody>
-</table>		
-  <?php
+	$total =0;
+	$b = 0;
+	foreach ($_SESSION["cart_products"] as $cart_itm)
+	{
+		$product_name = $cart_itm["product_name"];
+		$product_qty = $cart_itm["product_qty"];
+		$product_price = $cart_itm["product_price"];
+		$product_code = $cart_itm["product_code"];
+		$product_color = $cart_itm["product_color"];
+		$bg_color = ($b++%2==1) ? 'odd' : 'even'; //zebra stripe
+		echo '<tr class="'.$bg_color.'">';
+		echo '<td>Qty <input type="text" size="2" maxlength="2" name="product_qty['.$product_code.']" value="'.$product_qty.'" /></td>';
+		echo '<td>'.$product_name.'</td>';
+		echo '<td><input type="checkbox" name="remove_code[]" value="'.$product_code.'" /> Remove</td>';
+		echo '</tr>';
+		$subtotal = ($product_price * $product_qty);
+		$total = ($total + $subtotal);
+	}
+	echo '<td colspan="4">';
+	echo '<button type="submit">Update</button><a href="view_cart.php" class="button">Checkout</a>';
+	echo '</td>';
+	echo '</tbody>';
+	echo '</table>';
+	
+	$current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+	echo '<input type="hidden" name="return_url" value="'.$current_url.'" />';
+	echo '</form>';
+	echo '</div>';
+
 }
 ?>
-</div>
+<!-- View Cart Box End -->
 
-<div id="product-grid">
-	<div class="txt-heading">Products</div>
-	<?php
-	$product_array = $db_handle->runQuery("SELECT * FROM tblproduct ORDER BY id ASC");
-	if (!empty($product_array)) { 
-		foreach($product_array as $key=>$value){
-	?>
-		<div class="product-item">
-			<form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>">
-			<div class="product-image"><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
-			<div><strong><?php echo $product_array[$key]["name"]; ?></strong></div>
-			<div class="product-price"><?php echo "$".$product_array[$key]["price"]; ?></div>
-			<div><input type="text" name="quantity" value="1" size="2" /><input type="submit" value="Add to cart" class="btnAddAction" /></div>
-			</form>
-		</div>
-	<?php
-			}
-	}
-	?>
-</div>
-</BODY>
-</HTML>
+
+<!-- Products List Start -->
+<?php
+$results = $mysqli->query("SELECT product_code, product_name, product_desc, product_img_name, price FROM products ORDER BY id ASC");
+if($results){ 
+$products_item = '<ul class="products">';
+//fetch results set as object and output HTML
+while($obj = $results->fetch_object())
+{
+$products_item .= <<<EOT
+	<li class="product">
+	<form method="post" action="cart_update.php">
+	<div class="product-content"><h3>{$obj->product_name}</h3>
+	<div class="product-thumb"><img src="images/{$obj->product_img_name}"></div>
+	<div class="product-desc">{$obj->product_desc}</div>
+	<div class="product-info">
+	Price {$currency}{$obj->price} 
+	
+	<fieldset>
+	
+	<label>
+		<span>Color</span>
+		<select name="product_color">
+		<option value="Black">Black</option>
+		<option value="Silver">Silver</option>
+		</select>
+	</label>
+	
+	<label>
+		<span>Quantity</span>
+		<input type="text" size="2" maxlength="2" name="product_qty" value="1" />
+	</label>
+	
+	</fieldset>
+	<input type="hidden" name="product_code" value="{$obj->product_code}" />
+	<input type="hidden" name="type" value="add" />
+	<input type="hidden" name="return_url" value="{$current_url}" />
+	<div align="center"><button type="submit" class="add_to_cart">Add</button></div>
+	</div></div>
+	</form>
+	</li>
+EOT;
+}
+$products_item .= '</ul>';
+echo $products_item;
+}
+?>    
+<!-- Products List End -->
+</body>
+</html>
