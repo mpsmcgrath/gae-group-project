@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `product_code`, `product_name`, `product_desc`, `product_img_name`, `price`) VALUES
-(1, 'PD1001', 'Android Phone FX1', 'Di sertakan secara rambang yang lansung tidak munasabah. Jika anda ingin menggunakan Lorem Ipsum, anda perlu memastikan bahwa tiada apa yang', 'android-phone.jpg', 200.50),
-(2, 'PD1002', 'Television DXT', 'Ia menggunakan kamus yang mengandungi lebih 200 ayat Latin, bersama model dan struktur ayat Latin, untuk menghasilkan Lorem Ipsum yang munasabah.', 'lcd-tv.jpg', 500.85),
-(3, 'PD1003', 'External Hard Disk', 'Ada banyak versi dari mukasurat-mukasurat Lorem Ipsum yang sedia ada, tetapi kebanyakkannya telah diubahsuai, lawak jenaka diselitkan, atau ayat ayat yang', 'external-hard-disk.jpg', 100.00),
-(4, 'PD1004', 'Wrist Watch GE2', 'Memalukan akan terselit didalam di tengah tengah kandungan text. Semua injin Lorem Ipsum didalam Internet hanya mengulangi text, sekaligus menjadikan injin kami sebagai yang terunggul dan tepat sekali di Internet.', 'wrist-watch.jpg', 400.30);
+(1, 'PD1001', 'Coca-Cola Cans', '12 Pack x 330ml', 'coca-cola.jpg', 8.40),
+(2, 'PD1002', 'ADIDAS Football', 'Adidas Finale Cardiff 2017 Capitano Ball, White', 'football.jpg', 25.00),
+(3, 'PD1003', 'Cadbury Easter Egg', 'Cadbury Dairy Milk Oreo Large Easter Egg 278G', 'easter-egg.jpg', 9.99),
+(4, 'PD1004', 'Kelloggs Pop Tarts', 'Strawberry Sensation 400G', 'pop-tarts.jpg', 3.70);

@@ -1,5 +1,5 @@
 application: gae-group-project
-version: 4
+version: 6
 runtime: php55
 api_version: 1
 
