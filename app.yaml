@@ -22,6 +22,12 @@ handlers:
 - url: /index.php
   script: index.php
 
+- url: /login.php
+  script: login.php
+
+- url: /register.php
+  script: register.php
+
 - url: /cart_update.php
   script: cart_update.php
 
@@ -30,3 +36,9 @@ handlers:
 
 - url: /config.php
   script: config.php
+
+- url: /home.php
+  script: home.php
+
+- url: /logout.php
+  script: logout.php

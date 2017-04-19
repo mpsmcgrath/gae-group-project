@@ -5,12 +5,15 @@ include_once("config.php");
 
 //current URL of the Page. cart_update.php redirects back to this URL
 $current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+
+ // select loggedin users detail
+ $res=mysqli_query($mysqli,"SELECT * FROM users WHERE userId=".$_SESSION['user']);
+ $userRow=mysqli_fetch_array($res);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Shopping Cart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
     <link rel="icon" type="image/png" href="image/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -51,15 +54,27 @@ $current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_
 <!-- navbar links using lists and a dropdown class -->
     <div class="collapse navbar-collapse" id="myNavbar">
       
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-        <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-            <li><a href="/about">Deploy Video</a></li>
-            <li><a href="http://bookezi.wordpress.com">Team Blog</a></li>
-      </ul>
+
+
+
+
+
+         <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://www.youtube.com">Deploy Video</a></li>
+            <li><a href="https://groups.google.com/a/mail.dcu.ie/forum/#!forum/gae-group-project">Team Blog</a></li>
+            <li><a href="/register.php"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+            <li><a href="/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+     <span class="glyphicon glyphicon-user"></span>&nbsp;Hi' <?php echo $userRow['userEmail']; ?>&nbsp;<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="logout.php?logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign Out</a></li>
+              </ul>
+            </li>
+          </ul>
+
+
+
     </div>
   </div>
 </nav>
@@ -163,45 +178,40 @@ echo $products_item;
 
                     <ul class="pull-center">
                       <li>
-                        <a href="/about">
-                           About
+                        <a href="http://youtube.com">
+                          Deploy Video
                         </a>
                       </li>
                       <li>
-                        <a href="/contact">
-                          Contact Us
+                        <a href="https://groups.google.com/a/mail.dcu.ie/forum/#!forum/gae-group-project">
+                           Team Blog
                         </a>
                       </li>
                       <li>
-                        <a href="/login">
+                        <a href="/register.php">
+                          Register
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/login.php">
                            Login
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/signup">
-                          Signup
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/howitworks">
-                          How It Works
                         </a>
                       </li>
                     </ul>
 
                     <ul class="social-buttons pull-right">
                       <li>
-                        <a href="https://twitter.com/bookezi" target="_blank" class="btn btn-just-icon btn-simple">
+                        <a href="https://twitter.com/dublincityuni" target="_blank" class="btn btn-just-icon btn-simple">
                           <i class="fa fa-twitter"></i>
                         </a>
                       </li>
                       <li>
-                        <a href="https://www.facebook.com/bookezi" target="_blank" class="btn btn-just-icon btn-simple">
+                        <a href="https://www.facebook.com/dcu" target="_blank" class="btn btn-just-icon btn-simple">
                           <i class="fa fa-facebook-square"></i>
                         </a>
                       </li>
                       <li>
-                        <a href="https://www.instagram.com/bookezi" target="_blank" class="btn btn-just-icon btn-simple">
+                        <a href="https://www.instagram.com/dcu" target="_blank" class="btn btn-just-icon btn-simple">
                           <i class="fa fa-instagram"></i>
                         </a>
                       </li>
