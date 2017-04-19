@@ -149,3 +149,6 @@ ul.shopping-cart .cart-itm .remove-itm a{
 	margin: 10px 1px;
 	float: right;
 }
+.vspacer50 {
+	min-height: 100px;
+}

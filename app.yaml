@@ -1,5 +1,5 @@
 application: gae-group-project
-version: 6
+version: 7
 runtime: php55
 api_version: 1
 
@@ -9,6 +9,12 @@ handlers:
 
 - url: /style
   static_dir: style
+
+- url: /fonts
+  static_dir: fonts
+
+- url: /js
+  static_dir: js
 
 - url: /
   script: index.php
