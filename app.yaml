@@ -1,5 +1,5 @@
 application: gae-group-project
-version: 7
+version: 8
 runtime: php55
 api_version: 1
 
@@ -36,9 +36,6 @@ handlers:
 
 - url: /config.php
   script: config.php
-
-- url: /home.php
-  script: home.php
 
 - url: /logout.php
   script: logout.php

@@ -130,6 +130,10 @@ $current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_
 echo $current_url; ?>" />
 </form>
 </div>
+    <div class="vspacer50"></div>
+        <div class="vspacer50"></div>
+            <div class="vspacer50"></div>
+                <div class="vspacer50"></div>        
    <!-- simple black footer -->
     <footer class="footer footer-black">
                   <div class="container">
