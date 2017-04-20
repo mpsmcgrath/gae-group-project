@@ -50,17 +50,10 @@ $current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_
 <!-- logo -->
         <a href="/" class="pull-left"><img src="images/logo.png"></a>    
     </div>
-
 <!-- navbar links using lists and a dropdown class -->
     <div class="collapse navbar-collapse" id="myNavbar">
-      
-
-
-
-
-
          <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://www.youtube.com">Deploy Video</a></li>
+            <li><a href="https://www.youtube.com/watch?v=cVugL973Nzg">Deploy Video</a></li>
             <li><a href="https://groups.google.com/a/mail.dcu.ie/forum/#!forum/gae-group-project">Team Blog</a></li>
             <li><a href="/register.php"><span class="glyphicon glyphicon-user"></span> Register</a></li>
             <li><a href="/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -178,7 +171,7 @@ echo $products_item;
 
                     <ul class="pull-center">
                       <li>
-                        <a href="http://youtube.com">
+                        <a href="https://www.youtube.com/watch?v=cVugL973Nzg">
                           Deploy Video
                         </a>
                       </li>

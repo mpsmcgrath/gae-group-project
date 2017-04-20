@@ -121,7 +121,7 @@ include_once("config.php");
 <!-- navbar links using lists and a dropdown class -->
     <div class="collapse navbar-collapse" id="myNavbar">
          <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://www.youtube.com">Deploy Video</a></li>
+            <li><a href="https://www.youtube.com/watch?v=cVugL973Nzg">Deploy Video</a></li>
             <li><a href="https://groups.google.com/a/mail.dcu.ie/forum/#!forum/gae-group-project">Team Blog</a></li>
             <li><a href="/register.php"><span class="glyphicon glyphicon-user"></span> Register</a></li>
             <li><a href="/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -225,7 +225,7 @@ include_once("config.php");
 
                     <ul class="pull-center">
                       <li>
-                        <a href="http://youtube.com">
+                        <a href="https://www.youtube.com/watch?v=cVugL973Nzg">
                           Deploy Video
                         </a>
                       </li>
